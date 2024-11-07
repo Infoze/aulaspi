@@ -1,7 +1,5 @@
 package IFRN.PI.ATIVIDADES.molds;
 
-import org.hibernate.annotations.FetchProfile.FetchOverride;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
