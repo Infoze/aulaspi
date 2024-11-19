@@ -18,17 +18,76 @@
 
 		<div class="row">
 			<div class="col s12 m6 l12">
-				<div class="card blue-grey darken-1">
-					<div class="card-content white-text">
+				<div class="card">
+					<div class="card-content">
 						<span class="card-title">Evento</span>
-					<p><strong>Id: </strong><span th:text= "${evento.id}">1</span></p>	
-					<p><strong>Nome: </strong><span th:text= "${evento.nome}">Aniversário de josé</span></p>	
-					<p><strong>local: </strong><span th:text= "${evento.local}">Clube</span></p>
-					<p><strong>Data: </strong><span th:text= "${evento.Data}">25/03/2021</span></p>
-					<p><strong>Horário: </strong><span th:text= "${evento.Horario}">20:02</span></p>	
+						<p>
+							<strong>Id: </strong><span th:text="${evento.id}">1</span>
+						</p>
+						<p>
+							<strong>Nome: </strong><span th:text="${evento.nome}">Aniversário
+								de josé</span>
+						</p>
+						<p>
+							<strong>local: </strong><span th:text="${evento.local}">Clube</span>
+						</p>
+						<p>
+							<strong>Data: </strong><span th:text="${evento.Data}">25/03/2021</span>
+						</p>
+						<p>
+							<strong>Horário: </strong><span th:text="${evento.Horario}">20:02</span>
+						</p>
 					</div>
-					
+
 				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">Adicionar convidado:</span>
+				<form action="" method="post">
+					<div>
+						<label>Nome:</label> <input type="text" name="nome">
+					</div>
+					<div>
+						<label>RG:</label> <input type="text" name="rg">
+					</div>
+					<div>
+						<button type="submit">Salvar</button>
+						<button type="reset">Limpar</button>
+
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+
+	
+	<div class="row">
+		<div class="col s12">
+			<div class="cord">
+				<div class="cord-conent"></div>
+					<span class="card-title">Convidados</span>
+						<table class="highlight">
+							<thead>
+								<tr>
+								<th>Id:</th>
+								<th>Nome:</th>
+								<th>RG:</th>
+								
+								</tr>
+								
+							</thead>
+							<tbody>
+								<tr th:each="c : ${convidados}">
+								<td th:text="${c.id}">1</td>
+								<td th:text="${c.nome}">Célia</td>
+								<td th:text="${c.rg}">1234</td>
+								
+								</tr>
+							</tbody>
+						</table>
 			</div>
 		</div>
 	</div>

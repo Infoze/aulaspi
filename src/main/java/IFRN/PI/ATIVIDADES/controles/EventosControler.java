@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.ModelAndView;
 
 import IFRN.PI.ATIVIDADES.molds.Evento;
+import IFRN.PI.ATIVIDADES.repositories.ConvidadoRepository;
 import IFRN.PI.ATIVIDADES.repositories.EventoRepository;
 
 @Controller
@@ -21,6 +21,10 @@ public class EventosControler {
 
 	@Autowired
 	private EventoRepository er;
+	private IFRN.PI.ATIVIDADES.molds.convidado convidado;
+	@Autowired
+	private ConvidadoRepository cr;
+	private List<IFRN.PI.ATIVIDADES.molds.convidado> all;
 
 	@GetMapping("/form")
 	public String form() {
@@ -56,7 +60,31 @@ public class EventosControler {
 		md.setViewName("eventos/detalhes");
 		Evento evento = opt.get();
 		md.addObject("evento", evento);
+		
+		List<IFRN.PI.ATIVIDADES.molds.convidado> convidados = cr.findByEvento(evento);
+		md.addObject("convidados", convidados);
+		
 		return md;
 
 	}
+
+	@PostMapping("/{idEventos}")
+	public String salvarConvidado(@PathVariable Long idEventos, IFRN.PI.ATIVIDADES.molds.convidado convidado) {
+		System.out.println("Id do evento" + idEventos);
+		System.out.println(convidado);
+
+		Optional<Evento> opt = er.findById(idEventos);
+		if (opt.isEmpty()) {
+			return "redirect:/eventos";
+
+		}
+		
+		Evento evento = opt.get();
+		convidado.setEvento(evento);
+		
+		cr.save(convidado);
+
+		return "redirect:/eventos/{idEventos}";
+	}
+
 }
