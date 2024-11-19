@@ -60,10 +60,10 @@ public class EventosControler {
 		md.setViewName("eventos/detalhes");
 		Evento evento = opt.get();
 		md.addObject("evento", evento);
-		
+
 		List<IFRN.PI.ATIVIDADES.molds.convidado> convidados = cr.findByEvento(evento);
 		md.addObject("convidados", convidados);
-		
+
 		return md;
 
 	}
@@ -78,13 +78,31 @@ public class EventosControler {
 			return "redirect:/eventos";
 
 		}
-		
+
 		Evento evento = opt.get();
 		convidado.setEvento(evento);
-		
+
 		cr.save(convidado);
 
 		return "redirect:/eventos/{idEventos}";
+	}
+
+	@GetMapping("/{id}/remover")
+	public String apagarEvento(@PathVariable Long id) {
+
+		Optional<Evento> opt = er.findById(id);
+
+		if (!opt.isEmpty()) {
+			Evento evento = opt.get();
+
+			List<IFRN.PI.ATIVIDADES.molds.convidado> convidados = cr.findByEvento(evento);
+
+			cr.deleteAll(convidados);
+
+			er.delete(evento);
+		}
+
+		return "redirect:/eventos";
 	}
 
 }
